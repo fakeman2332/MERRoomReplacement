@@ -24,12 +24,22 @@ room_replacement:
   - is_enabled: false
     target_room_type: HczTestRoom
     schematic_name: 'AwsomeSchematic'
+    position_offset:
+      x: 0
+      y: 0
+      z: 0
+    rotation_offset:
+      x: 0
+      y: 0
+      z: 0
 ```
 
 ## Command
+Requires `mp.roomreplacement` permission
 ```
-REPLACEROOM <ROOM_TYPE> <SCHEMATIC_NAME>
+REPLACEROOM <ROOM_TYPE> <SCHEMATIC_NAME> (OFFSET_POS_X) (OFFSET_POS_Y) (OFFSET_POS_Z) (OFFSET_ROT_X) (OFFSET_ROT_Y) (OFFSET_ROT_Z)
 ```
+\* offsets by default equal to `0`
 
 # Depends on <3
 **[EXILED](https://github.com/Exiled-Team/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
