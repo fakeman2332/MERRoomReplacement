@@ -21,9 +21,9 @@ room_replacement:
   debug: false
   # Options for replacement. Will be applied on MapGenerated event
   replacement_options:
-  - is_enabled: true
+  - is_enabled: false
     target_room_type: HczTestRoom
-    schematic_name: 'android_lab'
+    schematic_name: 'AwsomeSchematic'
 ```
 
 ## Command
