@@ -19,7 +19,7 @@ room_replacement:
   is_enabled: true
   # Indicates debug mode enabled or not
   debug: false
-  # Options for replacement. Will be applied on MapGenerated event
+  # Options for replacement. Will be applied on WaitingForPlayers event
   replacement_options:
   - is_enabled: false
     target_room_type: HczTestRoom
