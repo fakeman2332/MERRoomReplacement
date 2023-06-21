@@ -25,7 +25,7 @@ public class ReplacementHandler : IEventHandler
     {
         foreach (var roomSchematic in _replacementOptions)
         {
-            RoomReplacer.ReplaceRoom(roomSchematic.TargetRoomType, roomSchematic.SchematicName);
+            RoomReplacer.ReplaceRoom(roomSchematic.TargetRoomType, roomSchematic);
         }
     }
 

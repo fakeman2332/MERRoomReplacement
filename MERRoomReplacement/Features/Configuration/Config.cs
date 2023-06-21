@@ -21,7 +21,9 @@ namespace MERRoomReplacement.Features.Configuration
             {
                 IsEnabled = false,
                 TargetRoomType = RoomType.HczTestRoom,
-                SchematicName = "AwsomeSchematic"
+                SchematicName = "AwsomeSchematic",
+                PositionOffset = new Vector3(0, 0, 0),
+                RotationOffset = new Vector3(0, 0, 0)
             }
         };
     }

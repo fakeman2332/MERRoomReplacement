@@ -9,4 +9,8 @@ public struct RoomSchematic
     public RoomType TargetRoomType { get; set; } 
     
     public string SchematicName { get; set; }
+    
+    public Vector3 PositionOffset { get; set; }
+    
+    public Vector3 RotationOffset { get; set; }
 }
