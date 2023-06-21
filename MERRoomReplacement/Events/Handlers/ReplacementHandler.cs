@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Exiled.Events.Handlers;
 using MERRoomReplacement.Api;
 using MERRoomReplacement.Events.Interfaces;
 using MERRoomReplacement.Features.Configuration.Structures;
@@ -17,10 +18,10 @@ public class ReplacementHandler : IEventHandler
 
     public void SubscribeEvents()
     {
-        Map.Generated += OnMapGenerated;
+        Server.WaitingForPlayers += OnWaitingForPlayers;
     }
 
-    private void OnMapGenerated()
+    private void OnWaitingForPlayers()
     {
         foreach (var roomSchematic in _replacementOptions)
         {
@@ -30,6 +31,6 @@ public class ReplacementHandler : IEventHandler
 
     public void UnsubscribeEvents()
     {
-        Map.Generated -= OnMapGenerated;
+        Server.WaitingForPlayers -= OnWaitingForPlayers;
     }
 }
