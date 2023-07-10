@@ -3,7 +3,6 @@ using Exiled.Events.Handlers;
 using MERRoomReplacement.Api;
 using MERRoomReplacement.Events.Interfaces;
 using MERRoomReplacement.Features.Configuration.Structures;
-using Map = Exiled.Events.Handlers.Map;
 
 namespace MERRoomReplacement.Events.Handlers;
 

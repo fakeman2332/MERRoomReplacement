@@ -11,7 +11,7 @@ An **[EXILED](https://github.com/Exiled-Team/EXILED)** Plugin that can replace b
 1. Go to [releases page](https://github.com/FakeMan2332/MERRoomReplacement/releases/latest) and download dll.
 2. Put downloaded plugin to your `EXILED/Plugins` directory
 
-## Configration
+## Configuration
 
 ```yml
 room_replacement:
@@ -19,11 +19,11 @@ room_replacement:
   is_enabled: true
   # Indicates debug mode enabled or not
   debug: false
-  # Options for replacement. Will be applied on WaitingForPlayers event
+  # Options for replacement. Will be applied o****n WaitingForPlayers event
   replacement_options:
   - is_enabled: false
     target_room_type: HczTestRoom
-    schematic_name: 'AwsomeSchematic'
+    schematic_name: 'AwesomeSchematic'
     position_offset:
       x: 0
       y: 0

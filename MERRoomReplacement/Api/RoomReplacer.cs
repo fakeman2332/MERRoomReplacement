@@ -1,25 +1,58 @@
-﻿using Exiled.API.Enums;
+﻿using System.Collections.Generic;
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using MapEditorReborn.API.Features;
+using MapGeneration;
 using MERRoomReplacement.Features.Configuration.Structures;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace MERRoomReplacement.Api;
 
 public static class RoomReplacer
 {
+    private static readonly IDictionary<RoomType, (Vector3 Position, Vector3 Rotation)> RoomsTransformDataCache;
+
+    static RoomReplacer()
+    {
+        RoomsTransformDataCache = new Dictionary<RoomType, (Vector3 Position, Vector3 Rotation)>();
+    }
+    
     public static void ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)
     {
         var room = Room.Get(roomType);
 
-        Log.Debug($"Schematic `{roomSchematic.SchematicName}` spawned");
+        var roomPosition = roomSchematic.PositionOffset.ToUnityEngineVector();
+        var roomRotation = roomSchematic.RotationOffset.ToUnityEngineVector();
+        
+        if (room == null)
+        {
+            if (!RoomsTransformDataCache.TryGetValue(roomType, out var roomData))
+                return;
+
+            roomPosition += roomData.Position;
+            roomRotation += roomData.Rotation;
+        }
+        else
+        {
+            if (RoomsTransformDataCache.ContainsKey(roomType)) 
+                return;
+
+            roomPosition += room.Position;
+            roomRotation += room.Rotation.eulerAngles;
+            
+            RoomsTransformDataCache.Add(roomType, (roomPosition, roomRotation));
+        }
+        
+        Log.Debug($"Spawning `{roomSchematic.SchematicName}` schematic");
+        
         ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, 
-            room.Position + roomSchematic.PositionOffset.ToUnityEngineVector(),
-            Quaternion.Euler(room.Rotation.eulerAngles + roomSchematic.RotationOffset.ToUnityEngineVector()));
+            roomPosition, Quaternion.Euler(roomRotation));
         
+        Log.Debug($"Schematic `{roomSchematic.SchematicName}` spawned");
+
         Log.Debug($"Destroying `{roomType}` room");
-        MonoBehaviour.Destroy(room.gameObject);
-        
+        Object.Destroy(room.gameObject);
         Log.Debug($"Room `{roomType}` should to be destroyed");
     }
 }
