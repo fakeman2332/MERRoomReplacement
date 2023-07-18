@@ -1,5 +1,8 @@
+[![Downloads](https://img.shields.io/github/downloads/FakeMan2332/MERRoomReplacement/total?style=for-the-badge&color=blue)](https://github.com/FakeMan2332/MERRoomReplacement/releases/latest)
+
 # MERRoomReplacement
 An **[EXILED](https://github.com/Exiled-Team/EXILED)** Plugin that can replace basegame room with MER's schematic 
+
 # ⚠️ NOTE ⚠️
 + **Not all rooms able to be replaced due to basegame features**
 
