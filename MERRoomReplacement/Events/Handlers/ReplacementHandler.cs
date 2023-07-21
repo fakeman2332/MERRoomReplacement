@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Exiled.Events.Handlers;
 using MERRoomReplacement.Api;
+using MERRoomReplacement.Api.Structures;
 using MERRoomReplacement.Events.Interfaces;
-using MERRoomReplacement.Features.Configuration.Structures;
 
 namespace MERRoomReplacement.Events.Handlers;
 

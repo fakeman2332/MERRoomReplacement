@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Exiled.API.Enums;
 
-namespace MERRoomReplacement.Features.Configuration.Structures;
+namespace MERRoomReplacement.Api.Structures;
 
 public struct RoomSchematic
 {

@@ -2,57 +2,60 @@
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using MapEditorReborn.API.Features;
-using MapGeneration;
-using MERRoomReplacement.Features.Configuration.Structures;
+using MapEditorReborn.API.Features.Objects;
+using MERRoomReplacement.Api.Structures;
+using Mirror;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
 
 namespace MERRoomReplacement.Api;
 
 public static class RoomReplacer
 {
-    private static readonly IDictionary<RoomType, (Vector3 Position, Vector3 Rotation)> RoomsTransformDataCache;
+    private static readonly IDictionary<RoomType, CachedRoom> RoomsTransformDataCache;
 
     static RoomReplacer()
     {
-        RoomsTransformDataCache = new Dictionary<RoomType, (Vector3 Position, Vector3 Rotation)>();
+        RoomsTransformDataCache = new Dictionary<RoomType, CachedRoom>();
     }
     
-    public static void ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)
+    public static SchematicObject ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)
     {
         var room = Room.Get(roomType);
 
-        var roomPosition = roomSchematic.PositionOffset.ToUnityEngineVector();
-        var roomRotation = roomSchematic.RotationOffset.ToUnityEngineVector();
-        
+        var schematicPosition = roomSchematic.PositionOffset.ToUnityEngineVector();
+        var schematicRotation = roomSchematic.RotationOffset.ToUnityEngineVector();
+
         if (room == null)
         {
-            if (!RoomsTransformDataCache.TryGetValue(roomType, out var roomData))
-                return;
-
-            roomPosition += roomData.Position;
-            roomRotation += roomData.Rotation;
-        }
-        else
-        {
-            if (RoomsTransformDataCache.ContainsKey(roomType)) 
-                return;
-
-            roomPosition += room.Position;
-            roomRotation += room.Rotation.eulerAngles;
+            if (!RoomsTransformDataCache.TryGetValue(roomType, out var cachedRoomData))
+                return null;
             
-            RoomsTransformDataCache.Add(roomType, (roomPosition, roomRotation));
+            schematicPosition += cachedRoomData.Position;
+            schematicRotation += cachedRoomData.Rotation;
+            
+            cachedRoomData.Schematic.Destroy();
+            
+            cachedRoomData.Schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, 
+                schematicPosition, Quaternion.Euler(schematicRotation));
+            
+            return cachedRoomData.Schematic;
         }
-        
-        Log.Debug($"Spawning `{roomSchematic.SchematicName}` schematic");
-        
-        ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, 
-            roomPosition, Quaternion.Euler(roomRotation));
-        
-        Log.Debug($"Schematic `{roomSchematic.SchematicName}` spawned");
 
-        Log.Debug($"Destroying `{roomType}` room");
         Object.Destroy(room.gameObject);
-        Log.Debug($"Room `{roomType}` should to be destroyed");
+        
+        var schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, schematicPosition + room.Position, 
+            Quaternion.Euler(schematicRotation + room.Rotation.eulerAngles));
+        
+        var roomDetails = new CachedRoom(room.Position, room.Rotation.eulerAngles, schematic);
+
+        if (RoomsTransformDataCache.ContainsKey(roomType))
+        {
+            RoomsTransformDataCache[roomType] = roomDetails;
+            return schematic;
+        }
+
+        RoomsTransformDataCache.Add(roomType, roomDetails);
+
+        return schematic;
     }
 }

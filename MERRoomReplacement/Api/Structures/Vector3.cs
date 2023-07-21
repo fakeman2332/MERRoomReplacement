@@ -1,4 +1,4 @@
-﻿namespace MERRoomReplacement.Features.Configuration.Structures;
+﻿namespace MERRoomReplacement.Api.Structures;
 
 public class Vector3
 {

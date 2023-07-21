@@ -3,10 +3,8 @@ using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.Permissions.Extensions;
 using MapEditorReborn.API.Features;
-using MapEditorReborn.API.Features.Objects;
-using MapEditorReborn.API.Features.Serializable;
 using MERRoomReplacement.Api;
-using MERRoomReplacement.Features.Configuration.Structures;
+using MERRoomReplacement.Api.Structures;
 
 namespace MERRoomReplacement.Commands;
 
@@ -113,7 +111,7 @@ public class ReplaceRoomCommand : ICommand, IUsageProvider
             return false;
         }
 
-        RoomReplacer.ReplaceRoom(roomType, new RoomSchematic()
+        _ = RoomReplacer.ReplaceRoom(roomType, new RoomSchematic()
         {
             SchematicName = schematicName,
             PositionOffset = new Vector3(positionOffsetX, positionOffsetY, positionOffsetZ),

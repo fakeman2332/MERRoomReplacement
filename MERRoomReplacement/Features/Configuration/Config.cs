@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Enums;
 using Exiled.API.Interfaces;
-using MERRoomReplacement.Features.Configuration.Structures;
+using MERRoomReplacement.Api.Structures;
 
 namespace MERRoomReplacement.Features.Configuration
 {
