@@ -59,10 +59,10 @@ replaceroom Lcz330 AwesomeSchematicName 0.1 0.15 -0.5 0 180 0
 ```
 
 # API
-+ You can use **`MERRoomReplacement.Api.RoomReplacer.ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)`** method to replace room from your plugin.
++ You can use `MERRoomReplacement.Api.RoomReplacer.ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)` method to replace room from your plugin.
 
 
 + You also can manually remove SCP-079 from spawn queue by using `MERRoomReplacement.Patches.RemoveScp079FromSpawnQueue.PatchSpawnQueue(Harmony harmony)` method. (If you not using the `scp079_should_replaced` option).
 
 # Depends on 💖
-> **[EXILED](https://github.com/Exiled-Team/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
+**[EXILED](https://github.com/Exiled-Team/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
