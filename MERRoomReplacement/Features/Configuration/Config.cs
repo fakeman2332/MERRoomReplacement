@@ -14,6 +14,9 @@ namespace MERRoomReplacement.Features.Configuration
         [Description("Indicates debug mode enabled or not")]
         public bool Debug { get; set; } = false;
 
+        [Description("Should SCP-079 be replaced with another free SCP")]
+        public bool Scp079ShouldReplaced { get; set; } = false;
+
         [Description("Options for replacement")]
         public List<RoomSchematic> ReplacementOptions { get; set; } = new()
         {
@@ -21,7 +24,7 @@ namespace MERRoomReplacement.Features.Configuration
             {
                 IsEnabled = false,
                 TargetRoomType = RoomType.HczTestRoom,
-                SchematicName = "AwsomeSchematic",
+                SchematicName = "AwesomeSchematic",
                 PositionOffset = new Vector3(0, 0, 0),
                 RotationOffset = new Vector3(0, 0, 0)
             }

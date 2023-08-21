@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.Permissions.Extensions;
@@ -8,6 +9,8 @@ using MERRoomReplacement.Api.Structures;
 
 namespace MERRoomReplacement.Commands;
 
+[SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
+[SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalse")]
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 [CommandHandler(typeof(GameConsoleCommandHandler))]
 public class ReplaceRoomCommand : ICommand, IUsageProvider
@@ -45,7 +48,7 @@ public class ReplaceRoomCommand : ICommand, IUsageProvider
 
         if (arguments.Count < 2)
         {
-            response = $"Wrong arguments! Command usage: {this.DisplayCommandUsage()}";
+            response = $"Invalid arguments!\nCommand usage:{this.DisplayCommandUsage()}";
             return false;
         }
 
@@ -60,7 +63,7 @@ public class ReplaceRoomCommand : ICommand, IUsageProvider
         var schematicName = arguments.At(1);
 
         var isSchematicExists = MapUtils.GetSchematicDataByName(schematicName) != null;
-
+        
         if (!isSchematicExists)
         {
             response = "Schematic not found!";

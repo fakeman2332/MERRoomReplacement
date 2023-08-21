@@ -4,7 +4,6 @@ using Exiled.API.Features;
 using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
 using MERRoomReplacement.Api.Structures;
-using Mirror;
 using UnityEngine;
 
 namespace MERRoomReplacement.Api;
@@ -17,7 +16,13 @@ public static class RoomReplacer
     {
         RoomsTransformDataCache = new Dictionary<RoomType, CachedRoom>();
     }
-    
+
+    /// <summary>
+    /// Replaces room with MapEditorReborn schematic
+    /// </summary>
+    /// <param name="roomType">Room that should be replaced</param>
+    /// <param name="roomSchematic">Replacement options</param>
+    /// <returns><see cref="SchematicObject"/></returns>
     public static SchematicObject ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)
     {
         var room = Room.Get(roomType);
@@ -29,23 +34,23 @@ public static class RoomReplacer
         {
             if (!RoomsTransformDataCache.TryGetValue(roomType, out var cachedRoomData))
                 return null;
-            
+
             schematicPosition += cachedRoomData.Position;
             schematicRotation += cachedRoomData.Rotation;
-            
+
             cachedRoomData.Schematic.Destroy();
-            
-            cachedRoomData.Schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, 
+
+            cachedRoomData.Schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName,
                 schematicPosition, Quaternion.Euler(schematicRotation));
-            
+
             return cachedRoomData.Schematic;
         }
 
         Object.Destroy(room.gameObject);
-        
-        var schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, schematicPosition + room.Position, 
+
+        var schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, schematicPosition + room.Position,
             Quaternion.Euler(schematicRotation + room.Rotation.eulerAngles));
-        
+
         var roomDetails = new CachedRoom(room.Position, room.Rotation.eulerAngles, schematic);
 
         if (RoomsTransformDataCache.ContainsKey(roomType))
