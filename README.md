@@ -22,6 +22,8 @@ room_replacement:
   is_enabled: true
   # Indicates debug mode enabled or not
   debug: false
+  # Should SCP-079 be replaced with another free SCP
+  scp079_should_replaced: false
   # Options for replacement. Will be applied o****n WaitingForPlayers event
   replacement_options:
   - is_enabled: false
@@ -44,5 +46,5 @@ REPLACEROOM <ROOM_TYPE> <SCHEMATIC_NAME> (OFFSET_POS_X) (OFFSET_POS_Y) (OFFSET_P
 ```
 \* offsets by default equal to `0`
 
-# Depends on <3
-**[EXILED](https://github.com/Exiled-Team/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
+# Depends on 💖
+> **[EXILED](https://github.com/Exiled-Team/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
