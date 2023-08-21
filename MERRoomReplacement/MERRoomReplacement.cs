@@ -1,12 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Exiled.API.Features;
 using HarmonyLib;
 using MERRoomReplacement.Events.Handlers;
 using MERRoomReplacement.Events.Interfaces;
 using MERRoomReplacement.Features.Configuration;
 using MERRoomReplacement.Patches;
-using PlayerRoles.RoleAssign;
-using Version = System.Version;
 
 namespace MERRoomReplacement
 {
@@ -30,11 +29,11 @@ namespace MERRoomReplacement
 
             _replacementHandler = new ReplacementHandler(
                 Config.ReplacementOptions.Where(x => x.IsEnabled),
-                Config.Scp079ShouldReplaced);
+                Config.PreventScp079OnRoleChange);
 
             _replacementHandler.SubscribeEvents();
 
-            if (Config.Scp079ShouldReplaced) 
+            if (Config.RemoveScp079FromSpawnQueue) 
                 return;
             
             _harmony = new Harmony("fakeman.merroomreplacement.patcher");

@@ -51,17 +51,6 @@ public class ReplacementHandler : IEventHandler
         ev.NewRole = GetFreeScp();
     }
 
-    private static RoleTypeId GetFreeScp()
-    {
-        var scpPlayers = Exiled.API.Features.Player.Get(Team.SCPs);
-        var possibleScps = ScpsRoleTypes
-            .Where(scpRoleType => scpPlayers.All(s => s.Role.Type != scpRoleType))
-            .ToList();
-
-        return possibleScps.Count == 0 ? 
-            RoleTypeId.ClassD : 
-            possibleScps[Random.Range(0, possibleScps.Count)];
-    }
     
     private void OnWaitingForPlayers()
     {
@@ -73,6 +62,19 @@ public class ReplacementHandler : IEventHandler
 
     public void UnsubscribeEvents()
     {
+        Player.ChangingRole -= OnPlayerChangingRole;
         Server.WaitingForPlayers -= OnWaitingForPlayers;
+    }
+    
+    private static RoleTypeId GetFreeScp()
+    {
+        var scpPlayers = Exiled.API.Features.Player.Get(Team.SCPs);
+        var possibleScps = ScpsRoleTypes
+            .Where(scpRoleType => scpPlayers.All(s => s.Role.Type != scpRoleType))
+            .ToList();
+
+        return possibleScps.Count == 0 ? 
+            RoleTypeId.ClassD : 
+            possibleScps[Random.Range(0, possibleScps.Count)];
     }
 }
