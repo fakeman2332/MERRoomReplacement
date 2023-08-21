@@ -13,13 +13,13 @@ public static class RemoveScp079FromSpawnQueue
 {
     public static void PatchSpawnQueue(Harmony harmony)
     {
-        var originalMethod = typeof(ScpSpawner).GetProperty(nameof(ScpSpawner.SpawnableScps))?.GetMethod;
+        var originalMethod = PropertyGetter(typeof(ScpSpawner), nameof(ScpSpawner.SpawnableScps));
         var transpiler = new HarmonyMethod(typeof(RemoveScp079FromSpawnQueue), nameof(Transpiler));
 
         harmony.Patch(originalMethod, transpiler: transpiler);
     }
     
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         var newInstructions = ListPool<CodeInstruction>.Pool.Get(instructions);
 

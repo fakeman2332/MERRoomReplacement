@@ -21,7 +21,7 @@ namespace MERRoomReplacement
 
         public override string Prefix => "room_replacement";
 
-        public override Version Version => new(1, 2, 0);
+        public override Version Version => new(1, 2, 1);
         
         public override void OnEnabled()
         {
