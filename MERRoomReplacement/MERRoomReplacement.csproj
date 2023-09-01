@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EXILED" Version="*" />
+        <PackageReference Include="EXILED" Version="8.0.0" />
         <PackageReference Include="Lib.Harmony" Version="2.0.4"/>
         
         <Reference Include="CommandSystem.Core" HintPath="$(EXILED_References)\CommandSystem.Core.dll" Private="false" />
