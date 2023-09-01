@@ -5,7 +5,7 @@ An **[EXILED](https://github.com/Exiled-Team/EXILED)** Plugin that can replace b
 
 # ⚠️ IMPORTANT NOTE ⚠️
 + **Not all rooms able to be replaced due to basegame features.**
-+ ⚠️ **Replacing rooms are breaking SCP-079! I should recommend you use `scp079_should_replaced` option in configuration (disabled by default).**
++ ⚠️ **Replacing rooms are breaking SCP-079! I should recommend you use `remove_scp079_from_spawn_queue` option in configuration (disabled by default).**
 
 ## Requirements
 + EXILED
@@ -23,9 +23,11 @@ room_replacement:
   is_enabled: true
   # Indicates debug mode enabled or not
   debug: false
+  # Should SCP-079 be removed from spawn queue
+  remove_scp079_from_spawn_queue: false
   # Should SCP-079 be replaced with another free SCP
-  scp079_should_replaced: false
-  # Options for replacement. Will be applied o****n WaitingForPlayers event
+  prevent_scp079_on_role_change: false
+  # Options for replacement. Will be applied on WaitingForPlayers event
   replacement_options:
   - is_enabled: false
     target_room_type: HczTestRoom
@@ -62,7 +64,7 @@ replaceroom Lcz330 AwesomeSchematicName 0.1 0.15 -0.5 0 180 0
 + You can use `MERRoomReplacement.Api.RoomReplacer.ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)` method to replace room from your plugin.
 
 
-+ You also can manually remove SCP-079 from spawn queue by using `MERRoomReplacement.Patches.RemoveScp079FromSpawnQueue.PatchSpawnQueue(Harmony harmony)` method. (If you not using the `scp079_should_replaced` option).
++ You also can manually remove SCP-079 from spawn queue by using `MERRoomReplacement.Patches.RemoveScp079FromSpawnQueue.PatchSpawnQueue(Harmony harmony)` method. (If you not using the `remove_scp079_from_spawn_queue` option).
 
 # Depends on 💖
 **[EXILED](https://github.com/Exiled-Team/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
