@@ -1,25 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using Exiled.API.Features.Pools;
+﻿using System;
 using HarmonyLib;
-using PlayerRoles;
-using PlayerRoles.RoleAssign;
-using static HarmonyLib.AccessTools;
 
 namespace MERRoomReplacement.Patches;
 
 public static class RemoveScp079FromSpawnQueue
 {
+    [Obsolete("Not implemented for 13.2 update", true)]
     public static void PatchSpawnQueue(Harmony harmony)
     {
-        var originalMethod = PropertyGetter(typeof(ScpSpawner), nameof(ScpSpawner.SpawnableScps));
-        var transpiler = new HarmonyMethod(typeof(RemoveScp079FromSpawnQueue), nameof(Transpiler));
-
-        harmony.Patch(originalMethod, transpiler: transpiler);
+        // var originalMethod = PropertyGetter(typeof(ScpSpawner), nameof(ScpSpawner.SpawnableScps));
+        // var patchMethod = new HarmonyMethod(typeof(RemoveScp079FromSpawnQueue), nameof(Transpiler));
+        //
+        // harmony.Patch(originalMethod, transpiler: patchMethod);
     }
-    
-    internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+
+    // internal static void Postfix(out PlayerRoleBase[] __result)
+    // {
+    //     __result = Array.Co(__result.ToList().RemoveAll(x => x.RoleTypeId == RoleTypeId.Scp079))
+    // }
+    //
+    /* internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         var newInstructions = ListPool<CodeInstruction>.Pool.Get(instructions);
 
@@ -46,5 +46,5 @@ public static class RemoveScp079FromSpawnQueue
             yield return newInstructions[z];
 
         ListPool<CodeInstruction>.Pool.Return(newInstructions);
-    }
+    } */
 }
