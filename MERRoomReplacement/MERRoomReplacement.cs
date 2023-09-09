@@ -5,7 +5,6 @@ using HarmonyLib;
 using MERRoomReplacement.Events.Handlers;
 using MERRoomReplacement.Events.Interfaces;
 using MERRoomReplacement.Features.Configuration;
-using MERRoomReplacement.Patches;
 
 namespace MERRoomReplacement
 {
@@ -21,7 +20,7 @@ namespace MERRoomReplacement
 
         public override string Prefix => "room_replacement";
 
-        public override Version Version => new(1, 2, 1);
+        public override Version Version => new(1, 3, 1);
         
         public override void OnEnabled()
         {
@@ -38,7 +37,7 @@ namespace MERRoomReplacement
             
             _harmony = new Harmony("fakeman.merroomreplacement.patcher");
 
-            RemoveScp079FromSpawnQueue.PatchSpawnQueue(_harmony);
+            // RemoveScp079FromSpawnQueue.PatchSpawnQueue(_harmony);
         }
 
         public override void OnDisabled()
