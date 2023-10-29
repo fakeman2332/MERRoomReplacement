@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using MapEditorReborn.API;
 using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
 using MERRoomReplacement.Api.Structures;
@@ -37,12 +38,14 @@ public static class RoomReplacer
 
             schematicPosition += cachedRoomData.Position;
             schematicRotation += cachedRoomData.Rotation;
-
+            
             cachedRoomData.Schematic.Destroy();
+            API.SpawnedObjects.Remove(cachedRoomData.Schematic);
 
             cachedRoomData.Schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName,
                 schematicPosition, Quaternion.Euler(schematicRotation));
-
+            API.SpawnedObjects.Add(cachedRoomData.Schematic);
+            
             return cachedRoomData.Schematic;
         }
 
@@ -50,6 +53,7 @@ public static class RoomReplacer
 
         var schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, schematicPosition + room.Position,
             Quaternion.Euler(schematicRotation + room.Rotation.eulerAngles));
+        API.SpawnedObjects.Add(schematic);
 
         var roomDetails = new CachedRoom(room.Position, room.Rotation.eulerAngles, schematic);
 
