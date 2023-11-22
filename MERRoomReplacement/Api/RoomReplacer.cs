@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using MapEditorReborn.API;
@@ -48,11 +49,36 @@ public static class RoomReplacer
             
             return cachedRoomData.Schematic;
         }
+        
+        foreach (var component in room.gameObject.GetComponentsInChildren<Component>())
+        {
+            try
+            {
+                if (component.name.Contains("SCP-079") || component.name.Contains("CCTV"))
+                {
+                    Log.Debug($"Prevent from destroying: {component.name} {component.tag} {component.GetType().FullName}");
+                    continue;
+                }
 
-        Object.Destroy(room.gameObject);
-
+                if (component.GetComponentsInParent<Component>()
+                    .Any(c => c.name.Contains("SCP-079") || c.name.Contains("CCTV")))
+                {
+                    Log.Debug($"Prevent from destroying: {component.name} {component.tag} {component.GetType().FullName}");
+                    continue;
+                }
+                
+                Log.Debug($"Destroying component: {component.name} {component.tag} {component.GetType().FullName}");
+                
+                Object.Destroy(component);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+        
         var schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, schematicPosition + room.Position,
-            Quaternion.Euler(schematicRotation + room.Rotation.eulerAngles));
+            Quaternion.Euler(schematicRotation + room.transform.localRotation.eulerAngles));
         API.SpawnedObjects.Add(schematic);
 
         var roomDetails = new CachedRoom(room.Position, room.Rotation.eulerAngles, schematic);
