@@ -7,6 +7,7 @@ using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
 using MERRoomReplacement.Api.Structures;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace MERRoomReplacement.Api;
 
@@ -34,22 +35,33 @@ public static class RoomReplacer
 
         if (room == null)
         {
-            if (!RoomsTransformDataCache.TryGetValue(roomType, out var cachedRoomData))
+            if (TryReplaceCachedRoom(roomType, roomSchematic, schematicPosition, schematicRotation, out var cachedRoomData)) 
                 return null;
 
-            schematicPosition += cachedRoomData.Position;
-            schematicRotation += cachedRoomData.Rotation;
-            
-            cachedRoomData.Schematic.Destroy();
-            API.SpawnedObjects.Remove(cachedRoomData.Schematic);
-
-            cachedRoomData.Schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName,
-                schematicPosition, Quaternion.Euler(schematicRotation));
-            API.SpawnedObjects.Add(cachedRoomData.Schematic);
-            
             return cachedRoomData.Schematic;
         }
         
+        DestroyRoom(room);
+        
+        var schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, schematicPosition + room.Position,
+            Quaternion.Euler(schematicRotation + room.transform.localRotation.eulerAngles));
+        API.SpawnedObjects.Add(schematic);
+
+        var roomDetails = new CachedRoom(room.Position, room.Rotation.eulerAngles, schematic);
+
+        if (RoomsTransformDataCache.ContainsKey(roomType))
+        {
+            RoomsTransformDataCache[roomType] = roomDetails;
+            return schematic;
+        }
+
+        RoomsTransformDataCache.Add(roomType, roomDetails);
+
+        return schematic;
+    }
+
+    private static void DestroyRoom(Room room)
+    {
         foreach (var component in room.gameObject.GetComponentsInChildren<Component>())
         {
             try
@@ -76,21 +88,24 @@ public static class RoomReplacer
                 // ignored
             }
         }
+    }
+
+    private static bool TryReplaceCachedRoom(RoomType roomType, RoomSchematic roomSchematic, Vector3 schematicPosition,
+        Vector3 schematicRotation, out CachedRoom cachedRoomData)
+    {
+        if (!RoomsTransformDataCache.TryGetValue(roomType, out cachedRoomData))
+            return true;
+
+        schematicPosition += cachedRoomData.Position;
+        schematicRotation += cachedRoomData.Rotation;
+            
+        cachedRoomData.Schematic.Destroy();
+        API.SpawnedObjects.Remove(cachedRoomData.Schematic);
+
+        cachedRoomData.Schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName,
+            schematicPosition, Quaternion.Euler(schematicRotation));
+        API.SpawnedObjects.Add(cachedRoomData.Schematic);
         
-        var schematic = ObjectSpawner.SpawnSchematic(roomSchematic.SchematicName, schematicPosition + room.Position,
-            Quaternion.Euler(schematicRotation + room.transform.localRotation.eulerAngles));
-        API.SpawnedObjects.Add(schematic);
-
-        var roomDetails = new CachedRoom(room.Position, room.Rotation.eulerAngles, schematic);
-
-        if (RoomsTransformDataCache.ContainsKey(roomType))
-        {
-            RoomsTransformDataCache[roomType] = roomDetails;
-            return schematic;
-        }
-
-        RoomsTransformDataCache.Add(roomType, roomDetails);
-
-        return schematic;
+        return false;
     }
 }
