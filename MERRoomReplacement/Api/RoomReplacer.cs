@@ -60,7 +60,14 @@ public static class RoomReplacer
         return schematic;
     }
 
-    private static void DestroyRoom(Room room)
+    /// <summary>
+    /// Destroys the specified room
+    /// </summary>
+    /// <remarks>
+    /// This method will not destroy the 079 components (cameras, speakers) in room
+    /// </remarks>
+    /// <param name="room">Room that should be destroyed</param>
+    public static void DestroyRoom(Room room)
     {
         foreach (var component in room.gameObject.GetComponentsInChildren<Component>())
         {
