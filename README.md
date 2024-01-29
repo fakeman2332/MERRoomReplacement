@@ -23,10 +23,6 @@ room_replacement:
   is_enabled: true
   # Indicates debug mode enabled or not
   debug: false
-  # Should SCP-079 be removed from spawn queue
-  remove_scp079_from_spawn_queue: false
-  # Should SCP-079 be replaced with another free SCP
-  prevent_scp079_on_role_change: false
   # Options for replacement. Will be applied on WaitingForPlayers event
   replacement_options:
   - is_enabled: false
