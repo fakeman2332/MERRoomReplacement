@@ -5,7 +5,6 @@ An **[EXILED](https://github.com/Exiled-Team/EXILED)** Plugin that can replace b
 
 # ⚠️ IMPORTANT NOTE ⚠️
 + **Not all rooms able to be replaced due to basegame features.**
-+ ⚠️ **Replacing rooms are breaking SCP-079! I should recommend you use `remove_scp079_from_spawn_queue` option in configuration (disabled by default).**
 
 ## Requirements
 + EXILED
