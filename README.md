@@ -3,8 +3,8 @@
 # MERRoomReplacement
 An **[EXILED](https://github.com/Exiled-Team/EXILED)** Plugin that can replace basegame room with MER's schematic.
 
-# ⚠️ IMPORTANT NOTE ⚠️
-+ **Not all rooms able to be replaced due to basegame features.**
+> [!CAUTION]
+> **Not all rooms able to be replaced due to basegame features.**
 
 ## Requirements
 + EXILED
