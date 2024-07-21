@@ -1,35 +1,20 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.Permissions.Extensions;
 using MapEditorReborn.API.Features;
 using MERRoomReplacement.Api;
 using MERRoomReplacement.Api.Structures;
+// ReSharper disable HeuristicUnreachableCode
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 
 namespace MERRoomReplacement.Commands;
 
-[SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
-[SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalse")]
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 [CommandHandler(typeof(GameConsoleCommandHandler))]
 public class ReplaceRoomCommand : ICommand, IUsageProvider
 {
     public string Command => "replaceroom";
-
-    public string[] Usage { get; } =
-    {
-        "room_type",
-        "schematic_name",
-
-        "(offset_pos_x)",
-        "(offset_pos_y)",
-        "(offset_pos_z)",
-
-        "(offset_rot_x)",
-        "(offset_rot_y)",
-        "(offset_rot_z)",
-    };
 
     public string[] Aliases { get; } =
     {
@@ -63,17 +48,17 @@ public class ReplaceRoomCommand : ICommand, IUsageProvider
         var schematicName = arguments.At(1);
 
         var isSchematicExists = MapUtils.GetSchematicDataByName(schematicName) != null;
-        
+
         if (!isSchematicExists)
         {
             response = "Schematic not found!";
             return false;
         }
-        
+
         var positionOffsetX = 0f;
         var positionOffsetY = 0f;
         var positionOffsetZ = 0f;
-        
+
         var rotationOffsetX = 0f;
         var rotationOffsetY = 0f;
         var rotationOffsetZ = 0f;
@@ -114,7 +99,7 @@ public class ReplaceRoomCommand : ICommand, IUsageProvider
             return false;
         }
 
-        _ = RoomReplacer.ReplaceRoom(roomType, new RoomSchematic()
+        _ = RoomReplacer.ReplaceRoom(roomType, new RoomSchematic
         {
             SchematicName = schematicName,
             PositionOffset = new Vector3(positionOffsetX, positionOffsetY, positionOffsetZ),
@@ -124,4 +109,18 @@ public class ReplaceRoomCommand : ICommand, IUsageProvider
         response = "Room replaced!";
         return true;
     }
+
+    public string[] Usage { get; } =
+    {
+        "room_type",
+        "schematic_name",
+
+        "(offset_pos_x)",
+        "(offset_pos_y)",
+        "(offset_pos_z)",
+
+        "(offset_rot_x)",
+        "(offset_rot_y)",
+        "(offset_rot_z)"
+    };
 }

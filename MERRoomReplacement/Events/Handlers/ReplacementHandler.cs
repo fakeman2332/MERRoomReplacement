@@ -26,7 +26,7 @@ public class ReplacementHandler : IEventHandler
         foreach (var roomSchematic in _replacementOptions)
         {
             if (roomSchematic.SpawnChance >= 100 || Random.Range(0, 100) > roomSchematic.SpawnChance)
-                RoomReplacer.ReplaceRoom(roomSchematic.TargetRoomType, roomSchematic);
+                RoomReplacer.ReplaceRoom(roomSchematic.TargetRoomType, roomSchematic, roomSchematic.SpawnDelay);
         }
     }
 

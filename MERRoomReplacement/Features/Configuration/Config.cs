@@ -23,6 +23,7 @@ namespace MERRoomReplacement.Features.Configuration
                 TargetRoomType = RoomType.HczTestRoom,
                 SchematicName = "AwesomeSchematic",
                 SpawnChance = 50,
+                SpawnDelay = 1f,
                 PositionOffset = new Vector3(0, 0, 0),
                 RotationOffset = new Vector3(0, 0, 0)
             }

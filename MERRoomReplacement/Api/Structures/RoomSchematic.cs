@@ -16,6 +16,9 @@ public struct RoomSchematic
     
     [Description("Chance for replace room with described schematic")]
     public int SpawnChance { get; set; }
+
+    [Description("Delay in seconds until replacement")]
+    public float SpawnDelay { get; set; }
     
     public Vector3 PositionOffset { get; set; }
     

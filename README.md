@@ -7,8 +7,8 @@ An **[EXILED](https://github.com/Exiled-Team/EXILED)** Plugin that can replace b
 > **Not all rooms able to be replaced due to basegame features.**
 
 ## Requirements
-+ EXILED
-+ MapEditorReborn
++ [EXILED](https://github.com/Exiled-Official/EXILED)
++ [MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)
 
 ## Installation
 1. Go to [releases page](https://github.com/FakeMan2332/MERRoomReplacement/releases/latest) and download dll.
@@ -27,6 +27,7 @@ room_replacement:
   - is_enabled: false
     target_room_type: HczTestRoom
     schematic_name: 'AwesomeSchematic'
+    spawn_delay: 2f
     position_offset:
       x: 0
       y: 0
@@ -56,7 +57,7 @@ replaceroom Lcz330 AwesomeSchematicName 0.1 0.15 -0.5 0 180 0
 ```
 
 # API
-+ You can use `MERRoomReplacement.Api.RoomReplacer.ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic)` method to replace room from your plugin.
++ You can use `MERRoomReplacement.Api.RoomReplacer` class in that case.
 
 # Depends on 💖
-**[EXILED](https://github.com/Exiled-Team/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
+**[EXILED](https://github.com/Exiled-Official/EXILED)** & **[MapEditorReborn](https://github.com/Michal78900/MapEditorReborn)**
