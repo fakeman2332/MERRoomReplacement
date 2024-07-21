@@ -27,7 +27,7 @@ room_replacement:
   - is_enabled: false
     target_room_type: HczTestRoom
     schematic_name: 'AwesomeSchematic'
-    spawn_delay: 2f
+    spawn_delay: 2
     position_offset:
       x: 0
       y: 0
