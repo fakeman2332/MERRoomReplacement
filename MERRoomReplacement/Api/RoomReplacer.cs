@@ -44,13 +44,15 @@ public static class RoomReplacer
                 ? null
                 : cachedRoomData.Schematic;
         }
-
+        
         DestroyRoom(room);
-
         
         var schematicSerializable = new SchematicSerializable(roomSchematic.SchematicName);
         var rotation = Quaternion.Euler(schematicRotation + room.transform.localRotation.eulerAngles);
-        var schematic = ObjectSpawner.SpawnSchematic(schematicSerializable, schematicPosition + room.Position, rotation);
+        var schematic = ObjectSpawner.SpawnSchematic(schematicSerializable, schematicPosition, rotation);
+        schematic.Position += schematicPosition;
+        
+        Log.Debug($"[{roomType}->{roomSchematic.SchematicName}] Schematic spawned at {schematic.Position}");
         
         API.SpawnedObjects.Add(schematic);
 
@@ -75,8 +77,13 @@ public static class RoomReplacer
     /// <param name="delay">Delay in seconds until replacement</param>
     public static void ReplaceRoom(RoomType roomType, RoomSchematic roomSchematic, float delay)
     {
+        Log.Debug($"[{roomType}->{roomSchematic.SchematicName}] Starting replacement coroutine with {delay} seconds delay");
+        
         Timing.CallDelayed(delay, () =>
         {
+            
+            Log.Debug($"[{roomType}->{roomSchematic.SchematicName}] Coroutine: Replacing...");
+            
             _ = ReplaceRoom(roomType, roomSchematic);
         });
     }

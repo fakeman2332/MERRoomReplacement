@@ -7,9 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EXILEDOFFICIAL" Version="8.11.0" />
-        <PackageReference Include="Lib.Harmony" Version="2.0.4"/>
-        
         <Reference Include="Assembly-CSharp-firstpass" HintPath="$(EXILED_References)\Assembly-CSharp-firstpass.dll" Private="false" />
         <Reference Include="CommandSystem.Core" HintPath="$(EXILED_References)\CommandSystem.Core.dll" Private="false" />
         <Reference Include="Mirror" HintPath="$(EXILED_References)\Mirror.dll" Private="false" />
@@ -17,6 +14,10 @@
         <Reference Include="UnityEngine.PhysicsModule" HintPath="$(EXILED_References)\UnityEngine.PhysicsModule.dll" Private="false" />
         <Reference Include="NorthwoodLib" HintPath="$(EXILED_References)\NorthwoodLib.dll" Private="false" />
         <Reference Include="MapEditorReborn" HintPath="$(EXILED_Plugins)\MapEditorReborn.dll" Private="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="ExMod.Exiled" Version="9.0.0-beta.1" />
     </ItemGroup>
 
 </Project>
